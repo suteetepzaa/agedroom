@@ -1,146 +1,201 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ฟีเจอร์นี้ยังไม่เปิดใช้งาน | ระบบจองห้องประชุม</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Kodchasan:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary: #0056b3;
-            --bg-body: #f0f2f5;
-            --white: #ffffff;
-            --text-main: #2d3436;
-            --secondary: #6c757d;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ระบบจองห้องประชุม PRO</title>
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#667eea,#764ba2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
 
-        body {
-            font-family: 'Kodchasan', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 20px;
-        }
+.container {
+  background: #fff;
+  padding: 25px;
+  border-radius: 16px;
+  width: 380px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
 
-        .container {
-            max-width: 500px;
-            background: var(--white);
-            padding: 3rem 2rem;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
+h2 { text-align: center; margin-bottom: 10px; }
 
-        /* ตกแต่งพื้นหลังด้วยวงกลมจางๆ */
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -50px;
-            right: -50px;
-            width: 150px;
-            height: 150px;
-            background: rgba(0, 86, 179, 0.05);
-            border-radius: 50%;
-        }
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
 
-        .icon-box {
-            width: 100px;
-            height: 100px;
-            background: #fff9db;
-            color: #fab005;
-            font-size: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            animation: bounce 2s infinite ease-in-out;
-        }
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
+.time-btn {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  text-align: center;
+  background: #f5f5f5;
+}
 
-        h1 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
+.time-btn.selected {
+  background: #007bff;
+  color: white;
+}
 
-        p {
-            color: var(--secondary);
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
+.time-btn.disabled {
+  background: #ddd;
+  color: #999;
+  cursor: not-allowed;
+}
 
-        .badge {
-            background: #e7f1ff;
-            color: var(--primary);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-        }
+button {
+  background: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
 
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--primary);
-            color: white;
-            text-decoration: none;
-            padding: 12px 30px;
-            border-radius: 15px;
-            font-weight: 600;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.2);
-        }
+button:hover { background: #218838; }
 
-        .btn-back:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 86, 179, 0.3);
-            background-color: #004494;
-        }
-
-        .footer-text {
-            margin-top: 2rem;
-            font-size: 0.8rem;
-            color: #bdc3c7;
-        }
-    </style>
+</style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="badge">Coming Soon / Beta Test</div>
-        <div class="icon-box">
-            <i class="fas fa-tools"></i>
-        </div>
-        <h1>ฟีเจอร์นี้ยังไม่เปิดใช้งาน</h1>
-        <p>ขออภัยในความไม่สะดวก ขณะนี้ฟีเจอร์ดังกล่าวอยู่ระหว่างการพัฒนาและทดสอบระบบ เพื่อให้ได้ข้อมูลที่แม่นยำที่สุด</p>
-        
-        <a href="javascript:history.back()" class="btn-back">
-            <i class="fas fa-arrow-left"></i> ย้อนกลับหน้าหลัก
-        </a>
+<div class="container">
+  <h2>จองห้องประชุม</h2>
 
-        <div class="footer-text">
-            ระบบจองห้องประชุม HCRD
-        </div>
-    </div>
+  <input type="text" id="name" placeholder="ชื่อผู้จอง">
+  <input type="date" id="date" onchange="loadBookings()">
+
+  <div class="time-grid" id="timeGrid"></div>
+
+  <button onclick="submitBooking()">จองห้อง</button>
+</div>
+
+<script>
+const times = [
+"08:00 - 09:00","09:00 - 10:00","10:00 - 11:00",
+"11:00 - 12:00","12:00 - 13:00","13:00 - 14:00",
+"14:00 - 15:00","15:00 - 16:00","16:00 - 17:00","17:00 - 18:00"
+];
+
+let selected = [];
+let booked = [];
+
+const grid = document.getElementById("timeGrid");
+
+times.forEach(t => {
+  const btn = document.createElement("div");
+  btn.innerText = t;
+  btn.className = "time-btn";
+
+  btn.onclick = () => {
+    if (btn.classList.contains("disabled")) return;
+
+    if (btn.classList.contains("selected")) {
+      btn.classList.remove("selected");
+      selected = selected.filter(x => x !== t);
+    } else {
+      if (selected.length >= 3) {
+        alert("จองได้ไม่เกิน 3 ชั่วโมง");
+        return;
+      }
+      btn.classList.add("selected");
+      selected.push(t);
+    }
+  };
+
+  grid.appendChild(btn);
+});
+
+function loadBookings() {
+  const date = document.getElementById("date").value;
+  if (!date) return;
+
+  fetch("https://script.google.com/macros/s/AKfycbzrOiZIjTwKCqSq1zED8aVU9jXnx9_6AtW6cKmMOrhCJEe_oUsqU24fJQxK80Cq5TjL/exec")
+    .then(res => res.json())
+    .then(data => {
+      booked = data.filter(b => b.date === date).map(b => b.times.split(", ")).flat();
+
+      document.querySelectorAll(".time-btn").forEach(btn => {
+        if (booked.includes(btn.innerText)) {
+          btn.classList.add("disabled");
+        } else {
+          btn.classList.remove("disabled");
+        }
+      });
+    });
+}
+
+function submitBooking() {
+  const name = document.getElementById("name").value;
+  const date = document.getElementById("date").value;
+
+  if (!name || !date || selected.length === 0) {
+    alert("กรอกข้อมูลให้ครบ");
+    return;
+  }
+
+  fetch("PUT_YOUR_SCRIPT_URL_HERE", {
+    method: "POST",
+    body: JSON.stringify({ name, date, times: selected.join(", ") })
+  })
+  .then(res => res.text())
+  .then(() => {
+    alert("จองสำเร็จ");
+    location.reload();
+  });
+}
+</script>
 
 </body>
 </html>
+
+
+/* ===== Google Apps Script PRO =====
+
+function doGet() {
+  var sheet = SpreadsheetApp.openById("1FjcB7X7rIaqUKU3p3rhtdTC1uRuE4OrrNwK4bvSqCJ4").getActiveSheet();
+  var data = sheet.getDataRange().getValues();
+
+  var result = [];
+
+  for (var i = 1; i < data.length; i++) {
+    result.push({
+      date: data[i][2],
+      times: data[i][3]
+    });
+  }
+
+  return ContentService.createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function doPost(e) {
+  var sheet = SpreadsheetApp.openById("1FjcB7X7rIaqUKU3p3rhtdTC1uRuE4OrrNwK4bvSqCJ4").getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+
+  sheet.appendRow([
+    new Date(),
+    data.name,
+    data.date,
+    data.times
+  ]);
+
+  return ContentService.createTextOutput("Success");
+}
+
+*/
