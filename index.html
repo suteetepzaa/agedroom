@@ -163,39 +163,3 @@ function submitBooking() {
 
 </body>
 </html>
-
-
-/* ===== Google Apps Script PRO =====
-
-function doGet() {
-  var sheet = SpreadsheetApp.openById("1FjcB7X7rIaqUKU3p3rhtdTC1uRuE4OrrNwK4bvSqCJ4").getActiveSheet();
-  var data = sheet.getDataRange().getValues();
-
-  var result = [];
-
-  for (var i = 1; i < data.length; i++) {
-    result.push({
-      date: data[i][2],
-      times: data[i][3]
-    });
-  }
-
-  return ContentService.createTextOutput(JSON.stringify(result))
-    .setMimeType(ContentService.MimeType.JSON);
-}
-
-function doPost(e) {
-  var sheet = SpreadsheetApp.openById("1FjcB7X7rIaqUKU3p3rhtdTC1uRuE4OrrNwK4bvSqCJ4").getActiveSheet();
-  var data = JSON.parse(e.postData.contents);
-
-  sheet.appendRow([
-    new Date(),
-    data.name,
-    data.date,
-    data.times
-  ]);
-
-  return ContentService.createTextOutput("Success");
-}
-
-*/
