@@ -1,711 +1,205 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ระบบตรวจสอบหลักสูตร วท.บ. เกษตรและสิ่งแวดล้อมศึกษา</title>
-<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Mali',cursive;background:#f4f7f4;color:#1a2e1a;min-height:100vh;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บริการ | Service - ชุมนุมฟาร์มนิสิต</title>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --sidebar-bg: #333333;
+            --main-bg: #ffffff;
+            --ku-green: #006633;
+            --ku-gold: #b29d6c;
+            --status-green: #2ecc71;
+            --info-yellow: #fff9db;
+        }
 
-.app-wrap{max-width:920px;margin:0 auto;padding:1.5rem 1rem 3rem;}
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif; }
 
-/* Title bar */
-.title-bar{background:linear-gradient(135deg,#1a5c2e 0%,#2d8a4e 100%);color:#fff;border-radius:16px;padding:1.25rem 1.75rem;margin-bottom:1.5rem;text-align:center;box-shadow:0 4px 16px rgba(29,92,46,.25);}
-.title-bar h1{font-size:17px;font-weight:700;line-height:1.6;}
-.title-bar p{font-size:13px;opacity:.88;margin-top:4px;font-weight:400;}
+        body { display: flex; min-height: 100vh; background-color: var(--main-bg); }
 
-/* Cards */
-.card{background:#fff;border:1px solid #daeada;border-radius:16px;padding:1.75rem;box-shadow:0 2px 8px rgba(0,0,0,.05);}
-.card + .card{margin-top:1rem;}
+        /* --- Sidebar (ซ้าย) --- */
+        .sidebar {
+            width: 260px;
+            background-color: var(--sidebar-bg);
+            color: #ffffff;
+            padding: 40px 30px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
 
-h2{font-size:18px;font-weight:700;color:#1a5c2e;margin-bottom:1.25rem;}
+        .brand-name { font-size: 1.6rem; font-weight: 500; line-height: 1.2; margin-bottom: 60px; color: #fff; }
+        .nav-menu { list-style: none; }
+        .nav-item { margin-bottom: 20px; }
+        .nav-item a { color: #aaa; text-decoration: none; font-size: 1rem; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .nav-item.active a, .nav-item a:hover { color: #fff; text-decoration: underline; }
 
-/* Form */
-label{font-size:13px;color:#4a6a4a;display:block;margin-bottom:5px;font-weight:500;}
-input,select{
-  width:100%;padding:9px 12px;
-  border:1px solid #c8dfc8;border-radius:10px;
-  font-size:14px;font-family:'Mali',cursive;
-  background:#fff;color:#1a2e1a;margin-bottom:14px;
-  transition:border-color .2s,box-shadow .2s;
-  outline:none;
-}
-input:focus,select:focus{border-color:#2d8a4e;box-shadow:0 0 0 3px rgba(45,138,78,.12);}
-.row2{display:grid;grid-template-columns:140px 1fr;gap:12px;}
+        /* --- Main Content (ขวา) --- */
+        .main-content { flex-grow: 1; position: relative; }
 
-/* Buttons */
-.btn{width:100%;padding:10px 16px;border:none;border-radius:10px;font-size:14px;font-weight:600;font-family:'Mali',cursive;cursor:pointer;transition:all .2s;}
-.btn-primary{background:#1a5c2e;color:#fff;}
-.btn-primary:hover{background:#145024;transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,92,46,.3);}
-.btn-secondary{background:transparent;border:1px solid #c8dfc8;color:#2d6a3f;}
-.btn-secondary:hover{background:#f0f8f0;border-color:#2d8a4e;}
-.link-btn{background:none;border:none;color:#2d8a4e;font-size:13px;font-family:'Mali',cursive;cursor:pointer;text-decoration:underline;}
+        /* --- Hero Header (ความอลังการ) --- */
+        .hero-banner {
+            background: linear-gradient(135deg, #004d26 0%, #006633 50%, #004d26 100%);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            border-bottom: 8px solid var(--ku-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
 
-/* Error */
-.error{color:#c0392b;font-size:13px;margin-top:-10px;margin-bottom:10px;padding:6px 10px;background:#fdf0ee;border-radius:8px;border:1px solid #f5c6c0;}
+        /* เอฟเฟกต์แสงวิบวับด้านหลัง */
+        .hero-banner::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
 
-/* User info bar */
-.user-info{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid #e0eee0;}
-.avatar{width:46px;height:46px;border-radius:50%;background:#e0f2e8;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#1a5c2e;flex-shrink:0;border:2px solid #a8d8b0;}
-.btn-logout{width:auto;padding:6px 16px;font-size:13px;margin-left:auto;}
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-/* Summary grid */
-.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:1.25rem;}
-.metric{background:#f0f8f0;border-radius:12px;padding:1rem;text-align:center;border:1px solid #d0ecd0;}
-.metric-num{font-size:26px;font-weight:700;color:#1a5c2e;}
-.metric-num.danger{color:#c0392b;}
-.metric-label{font-size:12px;color:#5a7a5a;margin-top:3px;font-weight:500;}
+        .club-title {
+            font-size: 4rem;
+            font-weight: 600;
+            color: transparent;
+            background: linear-gradient(to bottom, #f9d976 0%, #b29d6c 50%, #f9d976 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+        }
 
-/* Progress */
-.progress-wrap{background:#e0eee0;border-radius:20px;height:10px;margin-top:6px;}
-.progress-bar{background:linear-gradient(90deg,#2d8a4e,#4ab870);height:10px;border-radius:20px;transition:width .5s ease;}
-.progress-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
-.progress-label span{font-size:13px;color:#4a6a4a;font-weight:500;}
+        .faculty-subtitle {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 200;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+        }
 
-/* Tabs */
-.tab-bar{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap;}
-.tab{padding:7px 16px;border:1px solid #c8dfc8;border-radius:20px;font-size:13px;font-family:'Mali',cursive;font-weight:600;cursor:pointer;background:#fff;color:#4a7a4a;transition:all .2s;}
-.tab:hover{background:#f0f8f0;border-color:#2d8a4e;}
-.tab.active{background:#1a5c2e;color:#fff;border-color:#1a5c2e;}
+        /* --- Content Area --- */
+        .content-body { padding: 40px 60px; }
 
-/* Section */
-.section{margin-bottom:1.5rem;}
-.section-header{
-  background:#f4fbf4;border-left:4px solid #2d8a4e;
-  padding:10px 14px;border-radius:0 10px 10px 0;
-  margin-bottom:.75rem;
-  display:flex;justify-content:space-between;align-items:center;
-  flex-wrap:wrap;gap:8px;
-}
-.section-header h3{font-size:14px;font-weight:700;color:#1a5c2e;}
-.section-header .req{font-size:12px;color:#5a8a5a;font-weight:500;margin-top:2px;}
-.status-badge{
-  display:inline-flex;align-items:center;gap:4px;
-  font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;white-space:nowrap;
-  font-family:'Mali',cursive;
-}
-.badge-done{background:#d4f0dc;color:#1a5c2e;border:1px solid #a8d8b0;}
-.badge-partial{background:#fef3cd;color:#856404;border:1px solid #f5d883;}
-.badge-pending{background:#fde8e4;color:#c0392b;border:1px solid #f5b8b0;}
+        .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .page-title { font-size: 1.6rem; font-weight: 600; color: #333; }
 
-/* Course table */
-.course-table{width:100%;border-collapse:collapse;}
-.course-table th{
-  font-size:11px;font-weight:700;color:#5a8a5a;font-family:'Mali',cursive;
-  padding:6px 8px;border-bottom:2px solid #d0ecd0;text-align:left;background:#f9fdf9;
-}
-.course-table th.center{text-align:center;}
-.course-table td{padding:7px 8px;border-bottom:1px solid #eff7ef;vertical-align:middle;}
-.course-table tr:last-child td{border-bottom:none;}
-.course-table tr:hover td{background:#f7fdf7;}
+        .system-status {
+            display: flex; align-items: center; gap: 10px; padding: 8px 20px;
+            border: 1px solid #eee; border-radius: 30px; font-size: 0.85rem; color: #666;
+        }
+        .dot { width: 10px; height: 10px; background-color: var(--status-green); border-radius: 50%; box-shadow: 0 0 8px var(--status-green); }
 
-.course-code{font-size:12px;color:#5a8a5a;font-family:'Mali',cursive;white-space:nowrap;}
-.course-name-cell{font-size:13px;color:#1a2e1a;line-height:1.5;font-weight:500;}
-.credit-cell{font-size:13px;text-align:center;font-weight:600;color:#2d6a3f;}
-.grade-sel{margin:0;padding:5px 6px;font-size:12px;width:72px;border-radius:8px;}
-.semester-in{margin:0;padding:5px 7px;font-size:12px;width:86px;border-radius:8px;}
+        /* --- Service Grid (Die-cut) --- */
+        .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 50px; }
+        .service-card { text-align: center; text-decoration: none; color: #333; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .service-card:hover { transform: translateY(-15px); }
 
-/* Add button */
-.btn-add{
-  display:inline-flex;align-items:center;gap:6px;
-  margin-top:8px;padding:6px 14px;
-  border:1.5px dashed #4ab870;border-radius:8px;
-  background:transparent;color:#2d8a4e;
-  font-size:13px;font-weight:600;font-family:'Mali',cursive;cursor:pointer;
-  transition:all .2s;
-}
-.btn-add:hover{background:#e8f7ee;border-color:#1a5c2e;}
-.btn-add .plus{font-size:16px;line-height:1;}
+        .img-container { width: 100%; height: 280px; display: flex; justify-content: center; align-items: flex-end; margin-bottom: 15px; }
+        .img-container img { max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1)); }
 
-/* Delete btn */
-.btn-del{
-  background:none;border:none;cursor:pointer;
-  color:#c8a0a0;font-size:16px;padding:2px 6px;border-radius:6px;
-  font-family:'Mali',cursive;transition:all .15s;
-}
-.btn-del:hover{color:#c0392b;background:#fde8e4;}
+        .service-card h3 { font-size: 1.3rem; font-weight: 500; text-decoration: underline; margin-bottom: 10px; }
 
-/* Save btn */
-.save-row{display:flex;justify-content:flex-end;margin-top:1.25rem;}
-.btn-save{width:auto;padding:10px 28px;}
+        .beta-tag {
+            display: inline-flex; align-items: center; gap: 8px; background: #f8f9fa;
+            padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; color: #888; border: 1px solid #eee;
+        }
+        .beta-label { background: #fff3bf; color: #f08c00; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
 
-/* Hidden */
-.hidden{display:none!important;}
+        /* --- Info Bar --- */
+        .info-bar { background-color: var(--info-yellow); padding: 15px; text-align: center; font-size: 0.9rem; color: #85701d; border-radius: 4px; margin-bottom: 50px; }
 
-/* Responsive */
-@media(max-width:600px){
-  .summary-grid{grid-template-columns:repeat(2,1fr);}
-  .course-code{font-size:11px;}
-  .grade-sel,.semester-in{width:100%;min-width:60px;}
-  .course-table{font-size:12px;}
-}
-</style>
+        /* --- Footer Section --- */
+        .feedback-section { border-top: 1px solid #eee; padding-top: 30px; }
+        .feedback-header { display: flex; align-items: center; gap: 10px; font-size: 1.2rem; font-weight: 600; margin-bottom: 5px; }
+        .feedback-text { font-size: 0.9rem; color: #888; margin-left: 35px; }
+
+        /* Floating Search/Edit */
+        .top-search { position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); width: 40px; height: 40px; border-radius: 8px; display: flex; justify-content: center; align-items: center; color: #fff; cursor: pointer; z-index: 10; }
+        .fab-edit { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: #f8f9fa; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); color: #444; cursor: pointer; }
+
+        @media (max-width: 1024px) {
+            .service-grid { grid-template-columns: repeat(2, 1fr); }
+            .club-title { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
-<div class="app-wrap">
 
-<div class="title-bar">
-  <h1>ระบบตรวจสอบการเรียนตามหลักสูตร<br>วท.บ. (เกษตรและสิ่งแวดล้อมศึกษา)</h1>
-  <p>หลักสูตรปรับปรุง พ.ศ. 2564 — มหาวิทยาลัยเกษตรศาสตร์ วิทยาเขตกำแพงแสน</p>
-</div>
+    <aside class="sidebar">
+        <div class="brand-name">AG-ED<br>KU.KPS.</div>
+        <ul class="nav-menu">
+            <li class="nav-item active"><a href="#">Home</a></li>
+            <li class="nav-item"><a href="#"><i class="fas fa-chevron-down" style="font-size: 0.7rem;"></i> บริการห้องประชุม</a></li>
+        </ul>
+    </aside>
 
-<!-- REGISTER -->
-<div id="view-register" class="card">
-  <h2>สมัครสมาชิก</h2>
-  <div class="row2">
-    <div>
-      <label>คำนำหน้า</label>
-      <select id="reg-prefix">
-        <option value="">-- เลือก --</option>
-        <option>นาย</option>
-        <option>นางสาว</option>
-      </select>
-    </div>
-    <div>
-      <label>ชื่อ-นามสกุล</label>
-      <input type="text" id="reg-name" placeholder="ชื่อ นามสกุล">
-    </div>
-  </div>
-  <label>รหัสนิสิต (ใช้เป็น Username)</label>
-  <input type="text" id="reg-id" placeholder="เช่น 6512345678" maxlength="10">
-  <label>วันเดือนปีเกิด (ใช้เป็น Password) เช่น 01/01/2547</label>
-  <input type="text" id="reg-dob" placeholder="วว/ดด/ปปปป">
-  <div id="reg-error" class="error hidden"></div>
-  <button class="btn btn-primary" onclick="doRegister()">สมัครสมาชิก</button>
-  <div style="text-align:center;margin-top:14px;">
-    <button class="link-btn" onclick="showView('login')">มีบัญชีแล้ว? เข้าสู่ระบบ</button>
-  </div>
-</div>
+    <main class="main-content">
+        <section class="hero-banner">
+            <div class="top-search"><i class="fas fa-search"></i></div>
+            <p class="faculty-subtitle">Faculty of Education and Development Sciences</p>
+            <h1 class="club-title">ชุมนุมฟาร์มนิสิต</h1>
+            <p style="color: rgba(255,255,255,0.7); font-weight: 200; letter-spacing: 1px;">Kasetsart University Kamphaeng Saen Campus</p>
+        </section>
 
-<!-- LOGIN -->
-<div id="view-login" class="card hidden">
-  <h2>เข้าสู่ระบบ</h2>
-  <label>รหัสนิสิต (Username)</label>
-  <input type="text" id="login-id" placeholder="รหัสนิสิต">
-  <label>วันเดือนปีเกิด (Password)</label>
-  <input type="text" id="login-pw" placeholder="วว/ดด/ปปปป">
-  <div id="login-error" class="error hidden"></div>
-  <button class="btn btn-primary" onclick="doLogin()">เข้าสู่ระบบ</button>
-  <div style="text-align:center;margin-top:14px;">
-    <button class="link-btn" onclick="showView('register')">ยังไม่มีบัญชี? สมัครสมาชิก</button>
-  </div>
-</div>
+        <div class="content-body">
+            <div class="top-bar">
+                <h2 class="page-title">บริการ | Service</h2>
+                <div class="system-status">
+                    <span class="dot"></span> ระบบพร้อมใช้งาน
+                </div>
+            </div>
 
-<!-- MAIN -->
-<div id="view-main" class="hidden">
-  <div class="card" style="margin-bottom:1rem;">
-    <div class="user-info">
-      <div class="avatar" id="user-avatar">น</div>
-      <div>
-        <div style="font-size:16px;font-weight:700;color:#1a5c2e;" id="user-fullname">-</div>
-        <div style="font-size:13px;color:#5a8a5a;" id="user-id-display">-</div>
-      </div>
-      <button class="btn btn-secondary btn-logout" onclick="doLogout()">ออกจากระบบ</button>
-    </div>
+            <div class="service-grid">
+                <div class="service-card">
+                    <div class="img-container">
+                        <img src="https://static.vecteezy.com/system/resources/previews/009/397/835/original/man-student-with-backpack-free-png.png" alt="">
+                    </div>
+                    <h3>จองห้องประชุม</h3>
+                    <div class="beta-tag">
+                        <span class="beta-label">BETA</span> <i class="fas fa-satellite-dish"></i> เปิดระบบทดสอบ
+                    </div>
+                </div>
 
-    <div class="summary-grid">
-      <div class="metric"><div class="metric-num" id="s-done">0</div><div class="metric-label">หน่วยกิตผ่านแล้ว</div></div>
-      <div class="metric"><div class="metric-num danger" id="s-remain">136</div><div class="metric-label">หน่วยกิตคงเหลือ</div></div>
-      <div class="metric"><div class="metric-num" id="s-gpa">-</div><div class="metric-label">เกรดเฉลี่ยสะสม</div></div>
-    </div>
+                <div class="service-card">
+                    <div class="img-container">
+                        <img src="https://static.vecteezy.com/system/resources/previews/009/384/620/original/young-girl-student-holding-book-free-png.png" alt="">
+                    </div>
+                    <h3>ตารางการจองห้อง</h3>
+                </div>
 
-    <div class="progress-label">
-      <span>ความก้าวหน้าตลอดหลักสูตร (136 หน่วยกิต)</span>
-      <span id="s-pct">0%</span>
-    </div>
-    <div class="progress-wrap"><div class="progress-bar" id="s-bar" style="width:0%"></div></div>
-  </div>
+                <div class="service-card">
+                    <div class="img-container">
+                        <img src="https://static.vecteezy.com/system/resources/previews/009/397/892/original/man-student-carrying-a-lot-of-books-free-png.png" alt="">
+                    </div>
+                    <h3>แจ้งปัญหาการใช้งาน</h3>
+                </div>
+            </div>
 
-  <div class="tab-bar">
-    <div class="tab active" onclick="switchTab(0)">หมวดศึกษาทั่วไป</div>
-    <div class="tab" onclick="switchTab(1)">วิชาเฉพาะบังคับ</div>
-    <div class="tab" onclick="switchTab(2)">วิชาเฉพาะเลือก</div>
-    <div class="tab" onclick="switchTab(3)">วิชาเสรี</div>
-  </div>
+            <div class="info-bar">
+                เพื่อความสะดวกในการใช้งานโปรดเปิดผ่าน บราวเซอร์ iPad หรือ อุปกรณ์คอมพิวเตอร์
+            </div>
 
-  <div class="card" id="tab-panels"></div>
+            <div class="feedback-section">
+                <div class="feedback-header">
+                    <i class="far fa-comment-dots" style="color: #ccc;"></i> แสดงความคิดเห็น / ข้อเสนอแนะ
+                </div>
+                <p class="feedback-text">
+                    ผู้พัฒนาระบบยินดีรับฟังความคิดเห็นและข้อเสนอแนะ เพื่อนำไปปรับปรุงการให้บริการและพัฒนาให้ดียิ่งขึ้น
+                </p>
+            </div>
+        </div>
 
-  <div class="save-row">
-    <button class="btn btn-primary btn-save" id="save-btn" onclick="saveData()">💾 บันทึกข้อมูล</button>
-  </div>
-</div>
+        <div class="fab-edit"><i class="fas fa-pencil-alt"></i></div>
+    </main>
 
-</div><!-- app-wrap -->
-
-<script>
-// =========================================================
-// DATA — หลักสูตรทั้งหมด (ชื่อวิชาครบ ไม่ย่อ)
-// =========================================================
-const CURRICULUM = {
-  gen: [
-    {
-      id:'g1', group:'1.1 กลุ่มสาระอยู่ดีมีสุข', req:6, fixedCourses:false,
-      courses:[]
-    },
-    {
-      id:'g2', group:'1.2 กลุ่มสาระศาสตร์แห่งผู้ประกอบการ', req:3, fixedCourses:false,
-      courses:[]
-    },
-    {
-      id:'g3', group:'1.3 กลุ่มสาระภาษากับการสื่อสาร', req:13, fixedCourses:true,
-      courses:[
-        {code:'01999021-67', name:'ภาษาไทยเพื่อการสื่อสารในงานวิชาการและวิชาชีพ', credits:3},
-        {code:'01355101-64', name:'ภาษาอังกฤษในชีวิตประจำวัน', credits:3},
-        {code:'01355102-64', name:'ภาษาอังกฤษในมหาวิทยาลัย', credits:3},
-        {code:'01355103-64', name:'ภาษาอังกฤษเพื่อโอกาสในการทำงาน', credits:3},
-        {code:'01371111-67', name:'สื่อสารสนเทศเพื่อการเรียนรู้', credits:1}
-      ]
-    },
-    {
-      id:'g4', group:'1.4 กลุ่มสาระพลเมืองไทยและพลเมืองโลก', req:5, fixedCourses:true,
-      courses:[
-        {code:'01999111-67', name:'ศาสตร์แห่งแผ่นดิน', credits:2},
-        {code:'02999144-67', name:'ทักษะชีวิตการเป็นนิสิตมหาวิทยาลัย', credits:1},
-        {code:'02999147-67', name:'ไทยพลวัตอาเซียน', credits:3}
-      ]
-    },
-    {
-      id:'g5', group:'1.5 กลุ่มสาระสุนทรียศาสตร์', req:3, fixedCourses:false,
-      courses:[]
-    }
-  ],
-  core: [
-    {
-      id:'c1', group:'2.1.1 กลุ่มวิชาวิทยาศาสตร์', req:21, fixedCourses:true,
-      courses:[
-        {code:'01403111-60', name:'เคมีทั่วไป', credits:4},
-        {code:'01403112-65', name:'ปฏิบัติการเคมีทั่วไป', credits:1},
-        {code:'01403221-60', name:'เคมีอินทรีย์', credits:4},
-        {code:'01403222-65', name:'ปฏิบัติการเคมีอินทรีย์', credits:1},
-        {code:'01419211-65', name:'จุลชีววิทยาทั่วไป', credits:3},
-        {code:'01419214-65', name:'จุลชีววิทยาพื้นฐานภาคปฏิบัติการ', credits:1},
-        {code:'01422111-65', name:'หลักสถิติ', credits:3},
-        {code:'01424111-66', name:'หลักชีววิทยา', credits:3},
-        {code:'01424112-66', name:'ชีววิทยาภาคปฏิบัติการ', credits:1}
-      ]
-    },
-    {
-      id:'c2', group:'2.1.2 กลุ่มวิชาเกษตรและสิ่งแวดล้อมศึกษา', req:42, fixedCourses:true,
-      courses:[
-        {code:'02181111-64', name:'เกษตรและสิ่งแวดล้อมศึกษาเบื้องต้น', credits:3},
-        {code:'02181161-64', name:'ประสบการณ์พื้นฐานทางเกษตรและสิ่งแวดล้อมศึกษา', credits:1},
-        {code:'02181162-64', name:'ทักษะพื้นฐานทางเกษตรและสิ่งแวดล้อมศึกษา', credits:1},
-        {code:'02181261-64', name:'ประสบการณ์วิชาชีพทางเกษตรและสิ่งแวดล้อมศึกษา I', credits:1},
-        {code:'02181262-64', name:'ประสบการณ์วิชาชีพทางเกษตรและสิ่งแวดล้อมศึกษา II', credits:1},
-        {code:'02181331-64', name:'การสื่อสารทางเกษตรและสิ่งแวดล้อมศึกษา', credits:3},
-        {code:'02181333-64', name:'การประยุกต์คอมพิวเตอร์ทางเกษตรและสิ่งแวดล้อมศึกษา', credits:3},
-        {code:'02181351-64', name:'การประเมินการจัดการศึกษาทางเกษตรและสิ่งแวดล้อม', credits:3},
-        {code:'02181361-64', name:'ประสบการณ์วิชาชีพทางเกษตรและสิ่งแวดล้อมศึกษา III', credits:1},
-        {code:'02181362-64', name:'ประสบการณ์วิชาชีพทางเกษตรและสิ่งแวดล้อมศึกษา IV', credits:1},
-        {code:'02181411-64', name:'การพัฒนาทรัพยากรมนุษย์และชุมชนทางเกษตรและสิ่งแวดล้อมศึกษา', credits:3},
-        {code:'02181422-64', name:'การจัดการศึกษาทางเกษตรและสิ่งแวดล้อมในชุมชน', credits:3},
-        {code:'02181441-64', name:'การวางแผนโครงการและกิจกรรมทางเกษตรและสิ่งแวดล้อมศึกษา', credits:3},
-        {code:'02818461-64', name:'ประสบการณ์วิชาชีพทางเกษตรและสิ่งแวดล้อมศึกษา V', credits:2},
-        {code:'02181471-64', name:'การจัดการสิ่งแวดล้อมในชุมชน', credits:3},
-        {code:'02181472-64', name:'นิเวศวิทยาทางการเกษตร', credits:3},
-        {code:'02181481-64', name:'ค่านิยมและจริยธรรมทางเกษตรและสิ่งแวดล้อม', credits:3},
-        {code:'02181491-64', name:'วิธีวิจัยทางเกษตรและสิ่งแวดล้อมศึกษา', credits:3},
-        {code:'02181497-64', name:'สัมมนา', credits:1}
-      ]
-    },
-    {
-      id:'c3', group:'2.1.3 กลุ่มวิชาวิทยาศาสตร์เกษตรและสิ่งแวดล้อม', req:16, fixedCourses:true,
-      courses:[
-        {code:'02036221-66', name:'วิทยาศาสตร์และเทคโนโลยีด้านสัตว์', credits:3},
-        {code:'02036231-66', name:'วิทยาศาสตร์และเทคโนโลยีด้านพืชไร่', credits:2},
-        {code:'02036241-66', name:'กีฏวิทยาเบื้องต้น', credits:3},
-        {code:'02036261-66', name:'วิทยาศาสตร์ทางดิน', credits:3},
-        {code:'02036271-66', name:'วิทยาศาสตร์และเทคโนโลยีด้านพืชสวน', credits:2},
-        {code:'02036281-66', name:'โรคพืชวิทยาเบื้องต้น', credits:3}
-      ]
-    }
-  ],
-  elec: [
-    {
-      id:'e1', group:'2.2.1 วิชาเลือกสาขาเกษตรและสิ่งแวดล้อมศึกษา', req:6, fixedCourses:false,
-      courses:[
-        {code:'02181332-64', name:'สื่อสร้างสรรค์ทางการเกษตรและสิ่งแวดล้อมศึกษา', credits:3}
-      ]
-    },
-    {
-      id:'e2', group:'2.2.2 กลุ่มวิทยาศาสตร์เกษตรและสิ่งแวดล้อม', req:15, fixedCourses:false,
-      courses:[]
-    }
-  ],
-  free: [
-    {
-      id:'f1', group:'3. วิชาเสรี', req:6, fixedCourses:false,
-      courses:[]
-    }
-  ]
-};
-
-const GRADE_VALS = {A:4,'B+':3.5,B:3,'C+':2.5,C:2,'D+':1.5,D:1,F:0,S:null,U:null,W:null};
-const TABS = ['gen','core','elec','free'];
-
-let members = {};
-let currentUser = null;
-let courseData = {}; // key -> {grade, semester, credits(for free rows), code(free), name(free)}
-let extraRows = {};  // groupId -> [{uid, code, name, credits}]
-
-// =========================================================
-// STORAGE (localStorage fallback for standalone use)
-// =========================================================
-function storageGet(key){ try{return window.storage?window.storage.get(key):Promise.resolve(localStorage.getItem(key)?{value:localStorage.getItem(key)}:null);}catch(e){return Promise.resolve(null);} }
-function storageSet(key,val){ try{if(window.storage)return window.storage.set(key,val);localStorage.setItem(key,val);return Promise.resolve();}catch(e){return Promise.resolve();} }
-
-async function loadStorage(){
-  try{
-    let r;
-    if(window.storage){r=await window.storage.get('members');}
-    else{const v=localStorage.getItem('members');r=v?{value:v}:null;}
-    if(r) members=JSON.parse(r.value);
-  }catch(e){}
-}
-
-async function saveStorage(){
-  const payload=JSON.stringify(members);
-  if(window.storage){await window.storage.set('members',payload);}
-  else{localStorage.setItem('members',payload);}
-}
-
-// =========================================================
-// VIEWS
-// =========================================================
-function showView(v){
-  ['register','login','main'].forEach(x=>{
-    const el=document.getElementById('view-'+x);
-    if(el) el.classList.toggle('hidden',x!==v);
-  });
-  document.getElementById('login-error').classList.add('hidden');
-  document.getElementById('reg-error').classList.add('hidden');
-}
-
-// =========================================================
-// AUTH
-// =========================================================
-function doRegister(){
-  const prefix=document.getElementById('reg-prefix').value;
-  const name=document.getElementById('reg-name').value.trim();
-  const sid=document.getElementById('reg-id').value.trim();
-  const dob=document.getElementById('reg-dob').value.trim();
-  const err=document.getElementById('reg-error');
-  if(!prefix){showErr(err,'กรุณาเลือกคำนำหน้า');return;}
-  if(!name){showErr(err,'กรุณากรอกชื่อ-นามสกุล');return;}
-  if(!/^\d{10}$/.test(sid)){showErr(err,'รหัสนิสิตต้องเป็นตัวเลข 10 หลัก');return;}
-  if(!dob){showErr(err,'กรุณากรอกวันเดือนปีเกิด');return;}
-  if(members[sid]){showErr(err,'รหัสนิสิตนี้มีในระบบแล้ว กรุณาเข้าสู่ระบบ');return;}
-  err.classList.add('hidden');
-  members[sid]={prefix,name,dob,courseData:{},extraRows:{}};
-  saveStorage();
-  alert('สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบด้วยรหัสนิสิตและวันเดือนปีเกิดของท่าน');
-  showView('login');
-}
-
-function doLogin(){
-  const sid=document.getElementById('login-id').value.trim();
-  const pw=document.getElementById('login-pw').value.trim();
-  const err=document.getElementById('login-error');
-  if(!members[sid]||members[sid].dob!==pw){
-    showErr(err,'รหัสนิสิตหรือวันเดือนปีเกิดไม่ถูกต้อง');return;
-  }
-  err.classList.add('hidden');
-  currentUser=sid;
-  courseData=members[sid].courseData||{};
-  extraRows=members[sid].extraRows||{};
-  renderMain();
-  showView('main');
-}
-
-function doLogout(){currentUser=null;courseData={};extraRows={};showView('login');}
-
-function showErr(el,msg){el.textContent=msg;el.classList.remove('hidden');}
-
-// =========================================================
-// MAIN RENDER
-// =========================================================
-function renderMain(){
-  const m=members[currentUser];
-  const initials=m.name.charAt(0);
-  document.getElementById('user-avatar').textContent=initials;
-  document.getElementById('user-fullname').textContent=m.prefix+' '+m.name;
-  document.getElementById('user-id-display').textContent='รหัสนิสิต: '+currentUser;
-  switchTab(0);
-  updateSummary();
-}
-
-let currentTabIdx=0;
-function switchTab(idx){
-  currentTabIdx=idx;
-  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
-  const panels=document.getElementById('tab-panels');
-  panels.innerHTML='';
-  const catKey=TABS[idx];
-  const groups=CURRICULUM[catKey];
-  const catMeta=[
-    {label:'หมวดวิชาศึกษาทั่วไป',total:30},
-    {label:'หมวดวิชาเฉพาะ — วิชาเฉพาะบังคับ',total:79},
-    {label:'หมวดวิชาเฉพาะ — วิชาเฉพาะเลือก',total:21},
-    {label:'วิชาเสรี',total:6}
-  ];
-  const catHead=document.createElement('p');
-  catHead.style.cssText='font-size:13px;color:#5a8a5a;font-weight:600;margin-bottom:1rem;';
-  catHead.textContent=catMeta[idx].label+' (ไม่น้อยกว่า '+catMeta[idx].total+' หน่วยกิต)';
-  panels.appendChild(catHead);
-  groups.forEach(g=>renderGroup(panels,g));
-}
-
-// =========================================================
-// GROUP RENDER
-// =========================================================
-function renderGroup(container,g){
-  const done=calcDone(g);
-  const st=done>=g.req?'done':(done>0?'partial':'pending');
-  const stLabel=done>=g.req?'✓ ครบแล้ว':(done>0?'กำลังเรียน':'ยังไม่ครบ');
-  const badgeClass=st==='done'?'badge-done':(st==='partial'?'badge-partial':'badge-pending');
-
-  const sec=document.createElement('div');
-  sec.className='section';
-
-  // Header
-  const hdr=document.createElement('div');
-  hdr.className='section-header';
-  hdr.innerHTML=`
-    <div>
-      <h3>${g.group}</h3>
-      <div class="req">ต้องการ ${g.req} หน่วยกิต</div>
-    </div>
-    <span class="status-badge ${badgeClass}">${stLabel} ${done}/${g.req}</span>`;
-  sec.appendChild(hdr);
-
-  // Table
-  const tbl=document.createElement('table');
-  tbl.className='course-table';
-  tbl.innerHTML=`<thead><tr>
-    <th style="width:130px">รหัสวิชา</th>
-    <th>ชื่อวิชา</th>
-    <th class="center" style="width:68px">หน่วยกิต</th>
-    <th class="center" style="width:80px">เกรด</th>
-    <th class="center" style="width:92px">ภาค/ปี</th>
-    <th style="width:32px"></th>
-  </tr></thead>`;
-  const tbody=document.createElement('tbody');
-  tbody.id='tbody-'+g.id;
-
-  // Fixed courses
-  g.courses.forEach(c=>tbody.appendChild(buildFixedRow(c,g)));
-
-  // Extra rows (user-added)
-  const extras=extraRows[g.id]||[];
-  extras.forEach(ex=>tbody.appendChild(buildExtraRow(ex,g)));
-
-  tbl.appendChild(tbody);
-  sec.appendChild(tbl);
-
-  // Add button
-  const addBtn=document.createElement('button');
-  addBtn.className='btn-add';
-  addBtn.innerHTML='<span class="plus">+</span> เพิ่มรายวิชา';
-  addBtn.onclick=()=>addExtraRow(g);
-  sec.appendChild(addBtn);
-
-  container.appendChild(sec);
-}
-
-// =========================================================
-// ROW BUILDERS
-// =========================================================
-function buildFixedRow(c,g){
-  const key=c.code;
-  const saved=courseData[key]||{grade:'',semester:''};
-  const tr=document.createElement('tr');
-  tr.innerHTML=`<td><span class="course-code">${c.code}</span></td>
-    <td><span class="course-name-cell">${c.name}</span></td>
-    <td class="credit-cell">${c.credits}</td>`;
-
-  tr.appendChild(buildGradeCell(key,c.credits,saved.grade,()=>{updateSummary();refreshGroupHeader(g);}));
-  tr.appendChild(buildSemCell(key,saved.semester));
-  const td=document.createElement('td');tr.appendChild(td); // no delete
-  return tr;
-}
-
-function buildExtraRow(ex,g){
-  const key=ex.uid;
-  const saved=courseData[key]||{grade:'',semester:''};
-  const tr=document.createElement('tr');
-
-  // Code input
-  const tdCode=document.createElement('td');
-  const codeIn=document.createElement('input');
-  codeIn.type='text';codeIn.placeholder='รหัสวิชา';codeIn.value=ex.code||'';
-  codeIn.style.cssText='margin:0;padding:5px 7px;font-size:12px;width:100%;min-width:0;';
-  codeIn.oninput=()=>{ex.code=codeIn.value;};
-  tdCode.appendChild(codeIn);tr.appendChild(tdCode);
-
-  // Name input
-  const tdName=document.createElement('td');
-  const nameIn=document.createElement('input');
-  nameIn.type='text';nameIn.placeholder='ชื่อวิชา (เต็ม)';nameIn.value=ex.name||'';
-  nameIn.style.cssText='margin:0;padding:5px 7px;font-size:12px;width:100%;min-width:0;';
-  nameIn.oninput=()=>{ex.name=nameIn.value;};
-  tdName.appendChild(nameIn);tr.appendChild(tdName);
-
-  // Credits input
-  const tdCr=document.createElement('td');
-  const crIn=document.createElement('input');
-  crIn.type='number';crIn.placeholder='หน่วย';crIn.min=0;crIn.max=9;
-  crIn.value=ex.credits||'';
-  crIn.style.cssText='margin:0;padding:5px 7px;font-size:12px;width:100%;text-align:center;min-width:0;';
-  crIn.oninput=()=>{ex.credits=parseInt(crIn.value)||0;updateSummary();refreshGroupHeader(g);};
-  tdCr.appendChild(crIn);tr.appendChild(tdCr);
-
-  tr.appendChild(buildGradeCell(key,ex.credits,saved.grade,()=>{
-    ex.credits=parseInt(crIn.value)||0;
-    updateSummary();refreshGroupHeader(g);
-  }));
-  tr.appendChild(buildSemCell(key,saved.semester));
-
-  // Delete button
-  const tdDel=document.createElement('td');
-  const delBtn=document.createElement('button');
-  delBtn.className='btn-del';delBtn.textContent='×';delBtn.title='ลบรายวิชา';
-  delBtn.onclick=()=>{
-    extraRows[g.id]=(extraRows[g.id]||[]).filter(x=>x.uid!==ex.uid);
-    delete courseData[key];
-    tr.remove();
-    updateSummary();
-    refreshGroupHeader(g);
-  };
-  tdDel.appendChild(delBtn);tr.appendChild(tdDel);
-  return tr;
-}
-
-function buildGradeCell(key,credits,savedGrade,onChange){
-  const td=document.createElement('td');
-  const sel=document.createElement('select');
-  sel.className='grade-sel';
-  ['','A','B+','B','C+','C','D+','D','F','S','U','W'].forEach(g=>{
-    const o=document.createElement('option');o.value=g;o.textContent=g||'-';
-    if(savedGrade===g)o.selected=true;
-    sel.appendChild(o);
-  });
-  sel.onchange=()=>{
-    if(!courseData[key])courseData[key]={};
-    courseData[key].grade=sel.value;
-    if(onChange)onChange();
-  };
-  td.appendChild(sel);
-  return td;
-}
-
-function buildSemCell(key,savedSem){
-  const td=document.createElement('td');
-  const inp=document.createElement('input');
-  inp.type='text';inp.className='semester-in';inp.placeholder='ต.1/68';inp.value=savedSem||'';
-  inp.style.cssText='margin:0;padding:5px 7px;font-size:12px;width:100%;min-width:0;';
-  inp.onchange=()=>{
-    if(!courseData[key])courseData[key]={};
-    courseData[key].semester=inp.value;
-  };
-  td.appendChild(inp);
-  return td;
-}
-
-// =========================================================
-// ADD EXTRA ROW
-// =========================================================
-function addExtraRow(g){
-  if(!extraRows[g.id])extraRows[g.id]=[];
-  const uid='ex-'+g.id+'-'+Date.now();
-  const ex={uid,code:'',name:'',credits:0};
-  extraRows[g.id].push(ex);
-  const tbody=document.getElementById('tbody-'+g.id);
-  if(tbody) tbody.appendChild(buildExtraRow(ex,g));
-}
-
-// =========================================================
-// REFRESH GROUP HEADER STATUS (without full re-render)
-// =========================================================
-function refreshGroupHeader(g){
-  // Re-render the whole tab is simplest here
-  switchTab(currentTabIdx);
-}
-
-// =========================================================
-// CALCULATE DONE CREDITS
-// =========================================================
-function calcDone(g){
-  let total=0;
-  // Fixed courses
-  g.courses.forEach(c=>{
-    const d=courseData[c.code];
-    if(d&&d.grade&&d.grade!=='F'&&d.grade!=='W'&&d.grade!=='U'&&d.grade!=='')
-      total+=c.credits;
-  });
-  // Extra rows
-  (extraRows[g.id]||[]).forEach(ex=>{
-    const d=courseData[ex.uid];
-    if(d&&d.grade&&d.grade!=='F'&&d.grade!=='W'&&d.grade!=='U'&&d.grade!=='')
-      total+=ex.credits;
-  });
-  return total;
-}
-
-// =========================================================
-// SUMMARY
-// =========================================================
-function updateSummary(){
-  let totalDone=0,totalPoints=0,totalGpaCr=0;
-  const all=[...CURRICULUM.gen,...CURRICULUM.core,...CURRICULUM.elec,...CURRICULUM.free];
-  all.forEach(g=>{
-    g.courses.forEach(c=>{
-      const d=courseData[c.code];
-      if(!d||!d.grade)return;
-      if(d.grade!=='F'&&d.grade!=='W'&&d.grade!=='U') totalDone+=c.credits;
-      if(GRADE_VALS[d.grade]!==undefined&&GRADE_VALS[d.grade]!==null){
-        totalPoints+=GRADE_VALS[d.grade]*c.credits;
-        totalGpaCr+=c.credits;
-      }
-    });
-    (extraRows[g.id]||[]).forEach(ex=>{
-      const d=courseData[ex.uid];
-      const cr=ex.credits||0;
-      if(!d||!d.grade||cr===0)return;
-      if(d.grade!=='F'&&d.grade!=='W'&&d.grade!=='U') totalDone+=cr;
-      if(GRADE_VALS[d.grade]!==undefined&&GRADE_VALS[d.grade]!==null){
-        totalPoints+=GRADE_VALS[d.grade]*cr;
-        totalGpaCr+=cr;
-      }
-    });
-  });
-  const remain=Math.max(0,136-totalDone);
-  const gpa=totalGpaCr>0?(totalPoints/totalGpaCr).toFixed(2):'-';
-  const pct=Math.min(100,Math.round(totalDone/136*100));
-  document.getElementById('s-done').textContent=totalDone;
-  document.getElementById('s-remain').textContent=remain;
-  document.getElementById('s-gpa').textContent=gpa;
-  document.getElementById('s-pct').textContent=pct+'%';
-  document.getElementById('s-bar').style.width=pct+'%';
-}
-
-// =========================================================
-// SAVE
-// =========================================================
-async function saveData(){
-  members[currentUser].courseData=courseData;
-  members[currentUser].extraRows=extraRows;
-  await saveStorage();
-  const btn=document.getElementById('save-btn');
-  btn.textContent='✓ บันทึกแล้ว';btn.style.background='#3B6D11';
-  setTimeout(()=>{btn.innerHTML='💾 บันทึกข้อมูล';btn.style.background='';},2500);
-}
-
-// =========================================================
-// INIT
-// =========================================================
-loadStorage().then(()=>showView('register'));
-</script>
 </body>
 </html>
